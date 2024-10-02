@@ -1,0 +1,97 @@
+ class Node
+  { 
+   public : 
+     int data ;
+     Node *next ; 
+      // Create node by calling constructor 
+       Node(int data ) // Constructor 
+        { this-> data = data; 
+          this-> next = NULL; }
+       
+    };  
+     
+     void insert_at_Head( Node* &head, int data) 
+       { // 1.create new node
+         Node* temp = new Node(data);// call constructor + Dynamic memory 
+         // 2. new node pointing to 1st node
+         temp-> next= head ;
+         // 3. head should store address of temp
+         head = temp ;
+       }
+       
+    void insert_at_tail(Node* &tail , int data)
+    { 
+      Node* temp = new Node(data);
+      tail-> next= temp; 
+      tail = temp; 
+     /* while( temp -> next != NULL)
+      { temp = temp -> next; }
+        temp-> next= new Node(data);// insert at next 
+       update tail: it must pointing to tail of the linked-list 
+        tail = temp->next ; */
+     }
+         
+    void insert_at_position(Node* &head, Node* &tail, int position, int data)
+    {
+       Node*temp= head ;
+      // 1. if insert at 1st position 
+       if(position == 1)
+       { insert_at_Head(head,data);
+         return ; } // end of program (don't go below it)
+      
+      // 2. Travel temp in till position-1
+      int count = 1;
+        while( count < (position-1))
+        {
+          temp= temp-> next; 
+           count++; 
+         } 
+     // 3. Insert at End of list
+      if( temp-> next== NULL)
+      {  insert_at_tail(tail,data); // Update Tail as well 
+         return ; }// end of program(don't go below) 
+     
+     // 4. Insert in between :
+      Node* insert= new Node(data);// insert at any position
+      insert-> next = temp-> next ;
+      temp-> next= insert ; 
+      }
+    
+    void print( Node* &head )
+    { // temp pointer pointing to head 
+     Node*temp = head ;
+      while( temp != NULL)
+      {
+        cout<< temp-> data<<" " ; 
+        temp= temp-> next ;
+        }
+        cout<<endl; 
+      }
+    
+   int main(){
+     
+   Node* head = NULL; 
+   
+     Node* node1 = new Node(10);
+     head= node1;// head is pointing to node1 
+     Node* tail= head ;
+   
+     insert_at_Head(head,20);
+     insert_at_Head(head,30);
+     insert_at_Head(head,40);
+     
+     insert_at_tail(tail,50);
+     insert_at_tail(tail,60);
+     insert_at_tail(tail,70);
+     
+     insert_at_position(head,tail,3,100);
+     insert_at_position(head,tail,8,500);
+     insert_at_position(head,tail,1,200);
+     print(head); 
+     
+     cout<<"\n Head= "<< head-> data<<endl; 
+     cout<<"\n Tail= "<< tail-> data;
+
+   return 0; }
+ 
+ 
