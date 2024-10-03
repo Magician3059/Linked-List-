@@ -1,0 +1,75 @@
+ // Doubly Linked list
+  class Node
+  { public : 
+    int data ;
+    Node* previous;
+    Node* next ; 
+    Node(int data)
+    { this-> data = data;
+      this-> previous= NULL;
+      this-> next= NULL ; 
+      }
+    };
+ 
+   void insert_at_head(Node* &head,Node* &tail ,int data)
+   { Node* insert= new Node(data);
+     if( head == NULL)
+      { // update tail to end of list 
+        head = insert;
+        tail= insert;
+         }
+     else
+     { 
+      insert-> next = head ;
+      head-> previous = insert;
+      head = insert; 
+      }
+    }
+     
+    void insert_at_tail( Node* &head,Node* &tail, int data)
+    { 
+      Node* insert= new Node(data);
+      if( tail == NULL)
+        { tail = insert;
+          head = insert;// tail will be null only when head is null 
+        }
+      else
+       {
+        tail-> next = insert;
+        insert-> previous = tail;
+        tail = insert ; // Update Tail to last position
+        }
+     }
+     
+    void delete_memory(Node* &head) {
+    Node* current = head;
+    while (current != NULL) {
+        Node* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+    head = NULL;
+}       
+          
+          
+   void print(Node* &head)
+   { Node* trav = head; 
+     while( trav != NULL)
+     { cout<< trav-> data<<" " ;
+      trav = trav-> next; }
+    }
+ 
+   int main(){
+   Node*head = NULL;
+   Node*tail= NULL; 
+   insert_at_head(head,tail,10);
+   insert_at_head(head,tail,20);
+   insert_at_head(head,tail,30);
+   
+   insert_at_tail(head,tail,100);
+   insert_at_tail(head,tail,200);
+   insert_at_tail(head,tail,300);
+   
+   print(head);
+   return 0; }
+   
